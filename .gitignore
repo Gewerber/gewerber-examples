@@ -1,0 +1,24 @@
+# Miscellaneous
+*.log
+*.swp
+.DS_Store
+.history/
+
+# IntelliJ / IDE
+*.iml
+.idea/
+#.vscode/
+
+# Dart / Flutter
+**/doc/api/
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+/build/
+pubspec.lock
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
