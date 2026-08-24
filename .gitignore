@@ -22,3 +22,6 @@ pubspec.lock
 .env
 .env.*
 !.env.example
+
+# Self-hosted example: Serverpod secrets file (see self-hosted/README.md)
+self-hosted/config/

@@ -1,0 +1,32 @@
+# Test PostgreSQL for the Gewerber backend integration tests
+# (`dart test` in gewerber_backend_server).
+#
+# Modeled after the `postgres_test` service in the backend repo:
+# https://github.com/Gewerber/gewerber-backend-core/blob/main/gewerber_backend_server/docker-compose.yaml
+#
+# The server's test config expects this database on localhost:9090:
+# https://github.com/Gewerber/gewerber-backend-core/blob/main/gewerber_backend_server/config/test.yaml
+
+services:
+  postgres_test:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "${POSTGRES_TEST_PORT:-9090}:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: gewerber_backend_test
+      # Throwaway local-only credential for tests — NOT a secret.
+      # Must match `database:` under `test:` in the server's gitignored
+      # config/passwords.yaml (see README.md).
+      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASSWORD:-postgres}
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d gewerber_backend_test"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  postgres_test_data:
