@@ -1,7 +1,7 @@
 # Standalone (single-tenant) OSS deployment of the Gewerber backend.
 #
 # This is a deliberately simplified variant of the production stack in
-# https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/docker-compose.yml:
+# https://github.com/Gewerber/gewerber-backend/blob/main/deploy/docker-compose.yml:
 #
 #   - no Traefik / TLS termination: the API port is published directly,
 #     suitable for a trusted LAN or for placing your own reverse proxy in
@@ -17,12 +17,12 @@
 services:
   server:
     # Prebuilt open-source image pushed by CI (GHCR).
-    image: ${IMAGE:-ghcr.io/gewerber/gewerber-backend-core:prod-latest}
+    image: ${IMAGE:-ghcr.io/gewerber/gewerber-backend:prod-latest}
     # To build from source instead, clone
-    # https://github.com/Gewerber/gewerber-backend-core next to this repo and
+    # https://github.com/Gewerber/gewerber-backend next to this repo and
     # replace `image:` above with:
     #   build:
-    #     context: ../../gewerber-backend-core
+    #     context: ../../gewerber-backend
     #     dockerfile: gewerber_backend_server/Dockerfile
     container_name: ${CONTAINER_NAME:-gewerber-backend}
     restart: unless-stopped
@@ -74,7 +74,7 @@ services:
   # kept here because the config/<runmode>.yaml shipped inside the prebuilt
   # image points at host `redis`; dropping the service without removing that
   # config section requires building your own image. See:
-  # https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/README.md
+  # https://github.com/Gewerber/gewerber-backend/blob/main/deploy/README.md
   redis:
     image: redis:7-alpine
     restart: unless-stopped

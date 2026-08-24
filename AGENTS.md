@@ -6,7 +6,7 @@ Deployment examples, Docker Compose setups, and demo projects for Gewerber.
 
 - Each example lives in its own directory with a dedicated `README.md` explaining what it does and how to run it.
 - Keep examples minimal, self-contained, and reproducible.
-- Reference the real repositories (`gewerber-backend-core`, `gewerber-app`) rather than duplicating their code.
+- Reference the real repositories (`gewerber-backend`, `gewerber-app`) rather than duplicating their code.
 - Never commit secrets, credentials, or production configuration. Use placeholders and `.env.example` files.
 
 ## Open-Core Boundary

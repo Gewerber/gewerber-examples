@@ -1,7 +1,7 @@
 # Self-hosted Gewerber backend (standalone OSS, single-tenant)
 
 Minimal Docker Compose stack for running the open-source
-[Gewerber backend](https://github.com/Gewerber/gewerber-backend-core) on your
+[Gewerber backend](https://github.com/Gewerber/gewerber-backend) on your
 own server: **Serverpod API server + PostgreSQL 16 (+ Redis)**, no reverse
 proxy, no deploy tooling. One instance serves one organization (single-tenant).
 
@@ -12,10 +12,10 @@ proxy, no deploy tooling. One instance serves one organization (single-tenant).
 ## How this differs from the production deployment
 
 The full production setup lives in the backend repo:
-[`deploy/docker-compose.yml`](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/docker-compose.yml)
-(+ [`.env.example`](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/.env.example),
-[`deploy.sh`](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/deploy.sh),
-[runbook](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/README.md)).
+[`deploy/docker-compose.yml`](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/docker-compose.yml)
+(+ [`.env.example`](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/.env.example),
+[`deploy.sh`](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/deploy.sh),
+[runbook](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/README.md)).
 It runs behind Traefik with TLS, resource limits and per-environment secret
 generation.
 
@@ -70,7 +70,7 @@ production:
 Keep `<DB_PASSWORD>` consistent with `DB_PASSWORD` you set in `.env`
 (step 2) — it must match `POSTGRES_PASSWORD`. SMTP keys are optional; without
 them verification codes are logged instead of emailed (see the upstream
-[runbook](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/README.md)).
+[runbook](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/README.md)).
 
 > ⚠️ Disclaimer: `config/passwords.yaml` contains all server secrets and is
 > mounted read-only into the container at `/app/config/passwords.yaml`. Never
@@ -124,17 +124,17 @@ services named `postgres`/`server` and a database named `gewerber_backend`
 (all true here):
 
 ```bash
-git clone https://github.com/Gewerber/gewerber-backend-core.git
+git clone https://github.com/Gewerber/gewerber-backend.git
 DEPLOY_DIR="$PWD" BACKUP_DIR="$HOME/gewerber/backups" \
-  bash gewerber-backend-core/deploy/backup.sh prod
+  bash gewerber-backend/deploy/backup.sh prod
 
 DEPLOY_DIR="$PWD" \
-  bash gewerber-backend-core/deploy/restore.sh "$HOME/gewerber/backups/gewerber_backend_<stamp>.dump" prod
+  bash gewerber-backend/deploy/restore.sh "$HOME/gewerber/backups/gewerber_backend_<stamp>.dump" prod
 ```
 
-- [`backup.sh`](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/backup.sh) — `pg_dump -Fc` + integrity check + retention pruning; schedule via cron.
-- [`restore.sh`](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/restore.sh) — verified, confirmed, destructive restore (stops/restarts the API server itself).
-- Runbook with RPO/RTO guidance: [`deploy/README.md`](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/README.md).
+- [`backup.sh`](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/backup.sh) — `pg_dump -Fc` + integrity check + retention pruning; schedule via cron.
+- [`restore.sh`](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/restore.sh) — verified, confirmed, destructive restore (stops/restarts the API server itself).
+- Runbook with RPO/RTO guidance: [`deploy/README.md`](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/README.md).
 
 Ship backups off-box — a dump on the same disk as the database is not a
 disaster-recovery copy.
@@ -144,7 +144,7 @@ disaster-recovery copy.
 - **Redis**: kept because the prebuilt image's config references it, but the
   application code does not use Redis today — see the "Redis" audit section in
   the upstream
-  [`deploy/README.md`](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/README.md)
+  [`deploy/README.md`](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/README.md)
   for when it can be dropped (requires building your own image).
 - **Multi-tenancy**: the OSS core is built multi-tenant, but this standalone
   example targets a single organization hosting its own instance.

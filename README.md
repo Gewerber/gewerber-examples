@@ -21,7 +21,7 @@ Runnable, self-contained examples — each in its own directory with its own
 
 The production-grade deployment (Traefik, TLS, resource limits, CI-driven
 deploys, backup/restore runbook) lives in the backend repo, not here:
-[`gewerber-backend-core/deploy/`](https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/README.md).
+[`gewerber-backend/deploy/`](https://github.com/Gewerber/gewerber-backend/blob/main/deploy/README.md).
 The `self-hosted/` example above is derived from it.
 
 ## 🗺️ Planned
@@ -39,7 +39,7 @@ employees, subscriptions, AI assistant).
 
 ## 🧭 Related
 
-- [Backend Core](https://github.com/Gewerber/gewerber-backend-core)
+- [Backend](https://github.com/Gewerber/gewerber-backend)
 - [App](https://github.com/Gewerber/gewerber-app)
 - [Documentation](https://github.com/Gewerber/gewerber-docs)
 - [Contributing Guide](https://github.com/Gewerber/.github/blob/main/CONTRIBUTING.md)
