@@ -2,10 +2,10 @@
 # (`dart test` in gewerber_backend_server).
 #
 # Modeled after the `postgres_test` service in the backend repo:
-# https://github.com/Gewerber/gewerber-backend-core/blob/main/gewerber_backend_server/docker-compose.yaml
+# https://github.com/Gewerber/gewerber-backend/blob/main/gewerber_backend_server/docker-compose.yaml
 #
 # The server's test config expects this database on localhost:9090:
-# https://github.com/Gewerber/gewerber-backend-core/blob/main/gewerber_backend_server/config/test.yaml
+# https://github.com/Gewerber/gewerber-backend/blob/main/gewerber_backend_server/config/test.yaml
 
 services:
   postgres_test:

@@ -6,8 +6,8 @@
 ---
 
 - [x] Пример self-hosted деплоя OSS-стека на базе
-      `gewerber-backend-core/deploy/` (single-tenant compose + .env.example)
-      со ссылкой на https://github.com/Gewerber/gewerber-backend-core/blob/main/deploy/docker-compose.yml
+      `gewerber-backend/deploy/` (single-tenant compose + .env.example)
+      со ссылкой на https://github.com/Gewerber/gewerber-backend/blob/main/deploy/docker-compose.yml
       → `self-hosted/`
 - [x] Пример локальной dev-среды: postgres_test docker compose + прогон тестов бэкенда
       → `dev-environment/`
