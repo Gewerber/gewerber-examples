@@ -25,3 +25,6 @@ pubspec.lock
 
 # Self-hosted example: Serverpod secrets file (see self-hosted/README.md)
 self-hosted/config/
+
+# Local-only project tracker (never commit)
+/TODO.md

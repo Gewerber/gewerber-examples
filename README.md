@@ -26,7 +26,7 @@ The `self-hosted/` example above is derived from it.
 
 ## 🗺️ Planned
 
-Not here yet — see [`TODO.md`](TODO.md):
+Not here yet:
 
 - Demo / quickstart projects for individual OSS modules (invoicing, time tracking)
 - Deployment examples for [gewerber-app](https://github.com/Gewerber/gewerber-app) and the [website](https://github.com/Gewerber/gewerber-website)
