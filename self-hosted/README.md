@@ -150,8 +150,9 @@ disaster-recovery copy.
   path `assets/fonts/Roboto-Regular.ttf` inside the image. Changing the
   container `WORKDIR` or mounting a volume over `/app` breaks that lookup and
   silently degrades generated PDFs to glyph-limited Helvetica (no `€` or `–`).
-  The resolved font path is logged on successful load at startup — use that
-  line to diagnose, and point the server at the right file via the
-  `GEWERBER_INVOICE_FONT_PATH` environment variable if you must override it.
+  The resolved font path is logged when the font is first loaded (once per
+  process, on the first generated invoice) — use that line to diagnose, and
+  point the server at the right file via the `GEWERBER_INVOICE_FONT_PATH`
+  environment variable if you must override it.
 - **Multi-tenancy**: the OSS core is built multi-tenant, but this standalone
   example targets a single organization hosting its own instance.
