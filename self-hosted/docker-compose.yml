@@ -28,8 +28,9 @@ services:
     restart: unless-stopped
     environment:
       # Serverpod run mode: production | staging (selects the matching
-      # config/<runmode>.yaml baked into the image).
-      runmode: ${RUNMODE:-production}
+      # config/<mode>.yaml baked into the image; the server reads it from
+      # this environment variable).
+      SERVERPOD_RUN_MODE: ${RUNMODE:-production}
       # Apply pending database migrations on startup.
       SERVERPOD_APPLY_MIGRATIONS: "true"
     volumes:
@@ -71,7 +72,7 @@ services:
 
   # NOTE: you can remove this service — the application code does not use
   # Redis today (audit in the upstream deploy README, section "Redis"). It is
-  # kept here because the config/<runmode>.yaml shipped inside the prebuilt
+  # kept here because the config/<mode>.yaml shipped inside the prebuilt
   # image points at host `redis`; dropping the service without removing that
   # config section requires building your own image. See:
   # https://github.com/Gewerber/gewerber-backend/blob/main/deploy/README.md
