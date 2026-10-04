@@ -16,7 +16,10 @@
 #
 services:
   server:
-    # Prebuilt open-source image pushed by CI (GHCR).
+    # Prebuilt image pushed by CI (GHCR). NOTE: this is the release image built
+    # by the commercial pipeline, so it CONTAINS the closed commercial module —
+    # see the caveat in README.md. For a genuinely OSS-only image, build from
+    # source instead (documented in README.md, "Building an OSS-only image").
     image: ${IMAGE:-ghcr.io/gewerber/gewerber-backend:prod-latest}
     # To build from source instead, clone
     # https://github.com/Gewerber/gewerber-backend next to this repo and
@@ -24,6 +27,16 @@ services:
     #   build:
     #     context: ../../gewerber-backend
     #     dockerfile: gewerber_backend_server/Dockerfile
+    #     args:
+    #       # REQUIRED for a from-source build: without private access to
+    #       # gewerber-backend-commercial this image can only resolve the PUBLIC
+    #       # stub module. The release Dockerfile defaults to
+    #       # REQUIRE_COMMERCIAL=true and fails when the commercial module cannot
+    #       # be fetched, so pass false here to build the OSS-only variant.
+    #       REQUIRE_COMMERCIAL: "false"
+    #       # Match the branch you checked out (default in the Dockerfile is
+    #       # `develop`, the OSS/staging train):
+    #       GEWERBER_DEP_REF: main
     container_name: ${CONTAINER_NAME:-gewerber-backend}
     restart: unless-stopped
     environment:
