@@ -8,6 +8,13 @@ proxy, no deploy tooling. One instance serves one organization (single-tenant).
 > Open-core only: this example covers the OSS modules (invoicing, time
 > tracking, basic accounting, guidance). Closed modules (banking, tax/ELSTER,
 > employees, subscriptions, AI assistant) are not part of it.
+>
+> **Caveat on the prebuilt image.** The default `image:` is the CI release image
+> `ghcr.io/gewerber/gewerber-backend:prod-latest`, which is built by the
+> commercial pipeline and therefore **contains the closed commercial module**
+> (its endpoints stay inert without a commercial license, but the code is in the
+> image). A genuinely OSS-only artifact is only produced by building from source
+> with `REQUIRE_COMMERCIAL=false` — see "Building an OSS-only image" below.
 
 ## How this differs from the production deployment
 
@@ -138,6 +145,31 @@ DEPLOY_DIR="$PWD" \
 
 Ship backups off-box — a dump on the same disk as the database is not a
 disaster-recovery copy.
+
+## Building an OSS-only image
+
+The release pipeline builds with private access to `gewerber-backend-commercial`,
+so `prod-latest` is not an OSS-only artifact (see the caveat at the top). To
+build one yourself, clone
+[`gewerber-backend`](https://github.com/Gewerber/gewerber-backend) next to this
+repository and replace the `image:` line in `docker-compose.yml` with:
+
+```yaml
+    build:
+      context: ../../gewerber-backend
+      dockerfile: gewerber_backend_server/Dockerfile
+      args:
+        # No private access -> resolve the public stub module. The Dockerfile
+        # defaults to REQUIRE_COMMERCIAL=true and FAILS in that case, so this
+        # opt-out must be explicit.
+        REQUIRE_COMMERCIAL: "false"
+        GEWERBER_DEP_REF: main
+```
+
+The image build prints which module package it resolved; with
+`REQUIRE_COMMERICAL=false` a stub resolution is a warning rather than a failure.
+The resulting image is functionally the OSS core: the commercial endpoints are
+absent instead of present-but-inert.
 
 ## Notes
 
