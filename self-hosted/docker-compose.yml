@@ -55,6 +55,11 @@ services:
       # API server published directly to the host/network. The Insights
       # server (8081) intentionally stays internal.
       - "${SERVER_PORT:-8080}:8080"
+      # The web server (8082) that serves the OAuth callbacks under /auth/ is
+      # NOT published here. It is only needed when a social sign-in provider is
+      # enabled; to turn social sign-in on, publish 8082 as well and point the
+      # provider redirect URIs at it. See self-hosted/README.md, section
+      # "Publishing the web server port".
     depends_on:
       postgres:
         condition: service_healthy
