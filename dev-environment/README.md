@@ -22,7 +22,7 @@ These values match the server's test config,
 
 ## Run the backend integration tests
 
-Prerequisites: Docker, [Dart SDK](https://dart.dev) (^3.12), a clone of
+Prerequisites: Docker, [Dart SDK](https://dart.dev) (^3.14), a clone of
 [gewerber-backend](https://github.com/Gewerber/gewerber-backend).
 
 ```bash
